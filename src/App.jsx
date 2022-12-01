@@ -4,17 +4,18 @@ import Editor from "./components/Editor"
 import { data } from "./data"
 import Split from "react-split"
 import {nanoid} from "nanoid"
-import './App.css';
+import { useEffect, useState } from "react"
+import './App.css'
 
 export default function App() {
-    const [notes, setNotes] = React.useState(
+    const [notes, setNotes] = useState(
         () => JSON.parse(localStorage.getItem("notes")) || []
     )
-    const [currentNoteId, setCurrentNoteId] = React.useState(
+    const [currentNoteId, setCurrentNoteId] = useState(
         (notes[0] && notes[0].id) || ""
     )
     
-    React.useEffect(() => {
+ useEffect(() => {
         localStorage.setItem("notes", JSON.stringify(notes))
     }, [notes])
     
@@ -26,6 +27,7 @@ export default function App() {
         setNotes(prevNotes => [newNote, ...prevNotes])
         setCurrentNoteId(newNote.id)
     }
+
     
     function updateNote(text) {
         // Put the most recently-modified note at the top
